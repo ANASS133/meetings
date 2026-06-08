@@ -1,0 +1,232 @@
+{
+  "navbar": {
+    "dashboard": "Tableau de bord",
+    "meetings": "Réunions",
+    "new_meeting": "Nouvelle réunion",
+    "calendar": "Calendrier",
+    "historique": "Historique",
+    "sign_out": "Déconnexion",
+    "user": "Utilisateur",
+    "admin": "Administrateur",
+    "menu": "Menu",
+    "close_menu": "Fermer le menu",
+    "open_menu": "Ouvrir le menu"
+  },
+  "dashboard": {
+    "admin_title": "Tableau de bord Administrateur",
+    "admin_subtitle": "Aperçu de toutes les réunions et activités",
+    "total_meetings": "Total des réunions",
+    "upcoming": "À venir",
+    "in_progress": "En cours",
+    "completed": "Terminées",
+    "meetings_by_type": "Réunions par type",
+    "recent_activity": "Activité récente",
+    "no_activity": "Aucune activité récente.",
+    "system": "Système",
+    "quick_actions": "Actions rapides",
+    "all_meetings_title": "Toutes les réunions",
+    "all_meetings_desc": "Parcourez, filtrez et gérez les réunions",
+    "new_meeting_title": "Nouvelle réunion",
+    "new_meeting_desc": "Planifier une nouvelle réunion",
+    "welcome": "Bienvenue",
+    "welcome_subtitle": "Voici un aperçu de votre espace de travail",
+    "view_meetings_title": "Voir les réunions",
+    "view_meetings_desc": "Parcourez et gérez toutes vos réunions planifiées",
+    "create_meeting_title": "Créer une réunion",
+    "create_meeting_desc": "Planifiez une nouvelle réunion avec votre équipe",
+    "calendar_title": "Calendrier",
+    "calendar_desc": "Consultez votre emploi du temps"
+  },
+  "meetings_list": {
+    "title": "Réunions",
+    "new_meeting": "+ Nouvelle réunion",
+    "search_placeholder": "Rechercher par objectif, salle, participant...",
+    "all_types": "Tous les types",
+    "all_statuses": "Tous les statuts",
+    "planned": "Planifiée",
+    "in_progress": "En cours",
+    "completed": "Terminée",
+    "cancelled": "Annulée",
+    "filter": "Filtrer",
+    "reset": "Réinitialiser",
+    "try_again": "Réessayer",
+    "no_meetings": "Aucune réunion trouvée",
+    "no_meetings_desc": "Essayez d'ajuster vos filtres ou créez une nouvelle réunion.",
+    "create_meeting": "Créer une réunion",
+    "untitled": "Sans titre",
+    "view_photos": "Voir les photos",
+    "add_photos": "Ajouter des photos",
+    "uploading": "Téléchargement...",
+    "photos_of_meeting": "Photos de la réunion",
+    "no_photos": "Aucune photo pour cette réunion.",
+    "load_failed": "Échec du chargement des réunions",
+    "export_failed": "Échec de l'exportation",
+    "export_success": "Exporté en"
+  },
+  "calendar": {
+    "title": "Calendrier",
+    "months": {
+      "jan": "Janvier",
+      "feb": "Février",
+      "mar": "Mars",
+      "apr": "Avril",
+      "may": "Mai",
+      "jun": "Juin",
+      "jul": "Juillet",
+      "aug": "Août",
+      "sep": "Septembre",
+      "oct": "Octobre",
+      "nov": "Novembre",
+      "dec": "Décembre"
+    },
+    "days": {
+      "sun": "Dim",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam"
+    },
+    "select_date": "Sélectionner une date",
+    "untitled": "Sans titre",
+    "no_meetings": "Aucune réunion à cette date.",
+    "click_date": "Cliquez sur une date pour voir les réunions.",
+    "load_failed": "Échec du chargement du calendrier"
+  },
+  "auth": {
+    "login_title": "Se connecter",
+    "login_subtitle": "Entrez vos identifiants pour accéder à votre compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "password_placeholder": "Entrez votre mot de passe",
+    "signing_in": "Connexion en cours...",
+    "sign_in": "Se connecter",
+    "no_account": "Vous n'avez pas de compte ?",
+    "create_one": "Créez-en un",
+    "register_title": "Créer un compte",
+    "register_subtitle": "Inscrivez-vous pour commencer à planifier des réunions",
+    "full_name": "Nom complet",
+    "password_min": "Au moins 6 caractères",
+    "role": "Rôle",
+    "role_admin": "Administrateur",
+    "role_photographer": "Photographe",
+    "creating_account": "Création du compte...",
+    "create_account": "Créer un compte",
+    "has_account": "Vous avez déjà un compte ?",
+    "fill_fields": "Veuillez remplir tous les champs",
+    "login_success": "Connexion réussie !",
+    "login_failed": "Échec de la connexion. Veuillez vérifier vos identifiants.",
+    "password_length": "Le mot de passe doit contenir au moins 6 caractères",
+    "register_success": "Compte créé ! Veuillez vous connecter.",
+    "register_failed": "Échec de l'inscription. Veuillez réessayer."
+  },
+  "createMeeting": {
+    "title": "Créer une réunion",
+    "subtitle": "Planifier une nouvelle réunion et inviter des participants",
+    "sections": {
+      "meeting_info": "Informations de la réunion",
+      "schedule": "Planification",
+      "location_context": "Lieu & Contexte",
+      "documents": "Documents",
+      "photos": "Photos",
+      "people": "Personnes"
+    },
+    "fields": {
+      "objective": { "label": "Objectif", "placeholder": "ex. Réunion hebdomadaire de projet" },
+      "type": { "label": "Type" },
+      "description": { "label": "Description", "placeholder": "Ajoutez du contexte, des points à l'ordre du jour..." },
+      "date": { "label": "Date" },
+      "start_time": { "label": "Heure de début" },
+      "end_time": { "label": "Heure de fin" },
+      "room": { "label": "Salle" },
+      "objet": { "label": "Objet de la séance", "placeholder": "Sélectionner l'objet de la séance..." },
+      "dependences": { "label": "Dépendances", "placeholder": "Sélectionner un objectif de réunion supprimée..." },
+      "communes": { "label": "Communes", "placeholder": "Taper une commune..." },
+      "services_internes": { "label": "Services Internes" },
+      "services_externes": { "label": "Services Externes" },
+      "participants": { "label": "Participants" },
+      "rapporteur": { "label": "Rapporteur", "placeholder": "ex. Jean Dupont" },
+      "presidente": { "label": "Président(e)" }
+    },
+    "meeting_types": {
+      "preinstruction": "Préinstruction",
+      "information": "Information",
+      "information_et_dorientation": "Information et d'orientation",
+      "sensibilisation": "Sensibilisation",
+      "concertation": "Concertation",
+      "coordination": "Coordination",
+      "suivi": "Suivi",
+      "suivi_et_coordination": "Suivi et coordination",
+      "planification": "Planification",
+      "validation": "Validation"
+    },
+    "rooms": {
+      "cabinet": "Salle de réunion \"Cabinet\"",
+      "secretariat_general": "Salle de réunion \"Secrétariat Général\"",
+      "secretaire_general": "Salle de réunion \"Secrétaire Général\"",
+      "hall": "Salle de réunion \"Hall\"",
+      "conferences": "Salle de conférences"
+    },
+    "president_options": {
+      "gouverneur": "Le gouverneur",
+      "secretaire_general": "Le secrétaire général",
+      "chef_division": "Le chef de la division des affaires intérieures"
+    },
+    "participants": {
+      "search_placeholder": "Rechercher et sélectionner des participants...",
+      "search_input": "Taper un nom ou email...",
+      "no_matching": "Aucun participant correspondant trouvé",
+      "no_available": "Aucun participant disponible",
+      "selected_one": "participant sélectionné",
+      "selected_other": "participants sélectionnés"
+    },
+    "communes_section": {
+      "no_matching": "Aucune commune correspondante",
+      "no_available": "Aucune commune disponible",
+      "selected_one": "commune sélectionnée",
+      "selected_other": "communes sélectionnées"
+    },
+    "services": {
+      "no_internes": "Aucun service interne disponible",
+      "no_externes": "Aucun service externe disponible",
+      "search_placeholder": "Rechercher des services...",
+      "interne_one": "service interne sélectionné",
+      "interne_other": "services internes sélectionnés",
+      "externe_one": "service externe sélectionné",
+      "externe_other": "services externes sélectionnés"
+    },
+    "dependences": {
+      "no_matching": "Aucun objectif correspondant",
+      "no_available": "Aucune réunion supprimée disponible",
+      "filter_placeholder": "Filtrer..."
+    },
+    "validation": {
+      "objective_required": "L'objectif est requis",
+      "type_required": "Le type de réunion est requis",
+      "date_required": "La date est requise",
+      "fix_errors": "Veuillez corriger les erreurs ci-dessous"
+    },
+    "success": "Réunion créée avec succès !",
+    "actions": {
+      "cancel": "Annuler",
+      "create": "Créer la réunion",
+      "uploading": "Téléchargement des fichiers...",
+      "creating": "Création en cours..."
+    },
+    "documents": {
+      "add": "Ajouter des documents",
+      "none": "Aucun document ajouté",
+      "dropzone": "Cliquez ou glissez-déposez des fichiers ici",
+      "remove": "Supprimer le fichier"
+    },
+    "photos": {
+      "add": "Ajouter des photos",
+      "none": "Aucune photo ajoutée",
+      "dropzone": "Cliquez ou glissez-déposez des images ici",
+      "remove": "Supprimer l'image"
+    },
+    "description_counter": "caractères",
+    "select_placeholder": "Sélectionner..."
+  }
+}

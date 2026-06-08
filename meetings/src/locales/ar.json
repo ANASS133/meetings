@@ -1,0 +1,232 @@
+{
+  "navbar": {
+    "dashboard": "لوحة القيادة",
+    "meetings": "الاجتماعات",
+    "new_meeting": "اجتماع جديد",
+    "calendar": "التقويم",
+    "historique": "السجل",
+    "sign_out": "تسجيل الخروج",
+    "user": "مستخدم",
+    "admin": "مسؤول",
+    "menu": "القائمة",
+    "close_menu": "إغلاق القائمة",
+    "open_menu": "فتح القائمة"
+  },
+  "dashboard": {
+    "admin_title": "لوحة قيادة المسؤول",
+    "admin_subtitle": "نظرة عامة على جميع الاجتماعات والأنشطة",
+    "total_meetings": "إجمالي الاجتماعات",
+    "upcoming": "القادمة",
+    "in_progress": "قيد التقدم",
+    "completed": "المكتملة",
+    "meetings_by_type": "الاجتماعات حسب النوع",
+    "recent_activity": "النشاط الأخير",
+    "no_activity": "لا يوجد نشاط حديث.",
+    "system": "النظام",
+    "quick_actions": "إجراءات سريعة",
+    "all_meetings_title": "جميع الاجتماعات",
+    "all_meetings_desc": "تصفح، تصفية، وإدارة الاجتماعات",
+    "new_meeting_title": "اجتماع جديد",
+    "new_meeting_desc": "جدولة اجتماع جديد",
+    "welcome": "مرحباً",
+    "welcome_subtitle": "إليك نظرة عامة على مساحة العمل الخاصة بك",
+    "view_meetings_title": "عرض الاجتماعات",
+    "view_meetings_desc": "تصفح وإدارة جميع اجتماعاتك المجدولة",
+    "create_meeting_title": "إنشاء اجتماع",
+    "create_meeting_desc": "جدولة اجتماع جديد مع فريقك",
+    "calendar_title": "التقويم",
+    "calendar_desc": "عرض جدول اجتماعاتك"
+  },
+  "meetings_list": {
+    "title": "الاجتماعات",
+    "new_meeting": "+ اجتماع جديد",
+    "search_placeholder": "البحث حسب الهدف، الغرفة، المشارك...",
+    "all_types": "جميع الأنواع",
+    "all_statuses": "جميع الحالات",
+    "planned": "مخطط",
+    "in_progress": "قيد التقدم",
+    "completed": "مكتمل",
+    "cancelled": "ملغى",
+    "filter": "تصفية",
+    "reset": "إعادة ضبط",
+    "try_again": "حاول مرة أخرى",
+    "no_meetings": "لم يتم العثور على اجتماعات",
+    "no_meetings_desc": "حاول تعديل الفلاتر الخاصة بك أو إنشاء اجتماع جديد.",
+    "create_meeting": "إنشاء اجتماع",
+    "untitled": "بدون عنوان",
+    "view_photos": "عرض الصور",
+    "add_photos": "إضافة صور",
+    "uploading": "جاري الرفع...",
+    "photos_of_meeting": "صور الاجتماع",
+    "no_photos": "لا توجد صور لهذا الاجتماع.",
+    "load_failed": "فشل تحميل الاجتماعات",
+    "export_failed": "فشل التصدير",
+    "export_success": "تم التصدير كـ"
+  },
+  "calendar": {
+    "title": "التقويم",
+    "months": {
+      "jan": "يناير",
+      "feb": "فبراير",
+      "mar": "مارس",
+      "apr": "أبريل",
+      "may": "مايو",
+      "jun": "يونيو",
+      "jul": "يوليو",
+      "aug": "أغسطس",
+      "sep": "سبتمبر",
+      "oct": "أكتوبر",
+      "nov": "نوفمبر",
+      "dec": "ديسمبر"
+    },
+    "days": {
+      "sun": "الأحد",
+      "mon": "الإثنين",
+      "tue": "الثلاثاء",
+      "wed": "الأربعاء",
+      "thu": "الخميس",
+      "fri": "الجمعة",
+      "sat": "السبت"
+    },
+    "select_date": "حدد تاريخاً",
+    "untitled": "بدون عنوان",
+    "no_meetings": "لا توجد اجتماعات في هذا التاريخ.",
+    "click_date": "انقر على تاريخ لرؤية الاجتماعات.",
+    "load_failed": "فشل تحميل بيانات التقويم"
+  },
+  "auth": {
+    "login_title": "تسجيل الدخول",
+    "login_subtitle": "أدخل بيانات الاعتماد الخاصة بك للوصول إلى حسابك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "password_placeholder": "أدخل كلمة المرور الخاصة بك",
+    "signing_in": "جاري تسجيل الدخول...",
+    "sign_in": "تسجيل الدخول",
+    "no_account": "ليس لديك حساب؟",
+    "create_one": "أنشئ حساباً",
+    "register_title": "إنشاء حساب",
+    "register_subtitle": "قم بالتسجيل لبدء جدولة الاجتماعات",
+    "full_name": "الاسم الكامل",
+    "password_min": "6 أحرف على الأقل",
+    "role": "الدور",
+    "role_admin": "مسؤول",
+    "role_photographer": "مصور",
+    "creating_account": "جاري إنشاء الحساب...",
+    "create_account": "إنشاء حساب",
+    "has_account": "هل لديك حساب بالفعل؟",
+    "fill_fields": "يرجى ملء جميع الحقول",
+    "login_success": "تم تسجيل الدخول بنجاح!",
+    "login_failed": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك.",
+    "password_length": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+    "register_success": "تم إنشاء الحساب! يرجى تسجيل الدخول.",
+    "register_failed": "فشل التسجيل. يرجى المحاولة مرة أخرى."
+  },
+  "createMeeting": {
+    "title": "إنشاء اجتماع",
+    "subtitle": "جدولة اجتماع جديد ودعوة المشاركين",
+    "sections": {
+      "meeting_info": "معلومات الاجتماع",
+      "schedule": "الجدولة",
+      "location_context": "المكان والسياق",
+      "documents": "المستندات",
+      "photos": "الصور",
+      "people": "الأشخاص"
+    },
+    "fields": {
+      "objective": { "label": "الهدف", "placeholder": "مثال: مزامنة المشروع الأسبوعية" },
+      "type": { "label": "النوع" },
+      "description": { "label": "الوصف", "placeholder": "أضف سياقاً، بنود جدول الأعمال، أو ملاحظات..." },
+      "date": { "label": "التاريخ" },
+      "start_time": { "label": "وقت البدء" },
+      "end_time": { "label": "وقت الانتهاء" },
+      "room": { "label": "القاعة" },
+      "objet": { "label": "موضوع الجلسة", "placeholder": "اختر موضوع الجلسة..." },
+      "dependences": { "label": "الارتباطات", "placeholder": "اختر هدف اجتماع محذوف..." },
+      "communes": { "label": "البلديات", "placeholder": "اكتب اسم بلدية..." },
+      "services_internes": { "label": "المصالح الداخلية" },
+      "services_externes": { "label": "المصالح الخارجية" },
+      "participants": { "label": "المشاركون" },
+      "rapporteur": { "label": "المقرر", "placeholder": "مثال: محمد علوي" },
+      "presidente": { "label": "الرئيس(ة)" }
+    },
+    "meeting_types": {
+      "preinstruction": "تعليمات مسبقة",
+      "information": "إعلام",
+      "information_et_dorientation": "إعلام وتوجيه",
+      "sensibilisation": "تحسيس",
+      "concertation": "تشاور",
+      "coordination": "تنسيق",
+      "suivi": "متابعة",
+      "suivi_et_coordination": "متابعة وتنسيق",
+      "planification": "تخطيط",
+      "validation": "مصادقة"
+    },
+    "rooms": {
+      "cabinet": "قاعة الاجتماعات \"المكتب\"",
+      "secretariat_general": "قاعة الاجتماعات \"الكتابة العامة\"",
+      "secretaire_general": "قاعة الاجتماعات \"الكاتب العام\"",
+      "hall": "قاعة الاجتماعات \"القاعة\"",
+      "conferences": "قاعة المؤتمرات"
+    },
+    "president_options": {
+      "gouverneur": "السيد العامل",
+      "secretaire_general": "الكاتب العام",
+      "chef_division": "رئيس قسم الشؤون الداخلية"
+    },
+    "participants": {
+      "search_placeholder": "ابحث واختر المشاركين...",
+      "search_input": "اكتب اسماً أو بريداً إلكترونياً...",
+      "no_matching": "لم يتم العثور على مشاركين مطابقين",
+      "no_available": "لا يوجد مشاركون متاحون",
+      "selected_one": "مشارك محدد",
+      "selected_other": "مشاركين محددين"
+    },
+    "communes_section": {
+      "no_matching": "لا توجد بلديات مطابقة",
+      "no_available": "لا توجد بلديات متاحة",
+      "selected_one": "بلدية محددة",
+      "selected_other": "بلديات محددة"
+    },
+    "services": {
+      "no_internes": "لا توجد مصالح داخلية متاحة",
+      "no_externes": "لا توجد مصالح خارجية متاحة",
+      "search_placeholder": "البحث عن المصالح...",
+      "interne_one": "مصلحة داخلية محددة",
+      "interne_other": "مصالح داخلية محددة",
+      "externe_one": "مصلحة خارجية محددة",
+      "externe_other": "مصالح خارجية محددة"
+    },
+    "dependences": {
+      "no_matching": "لا توجد أهداف مطابقة",
+      "no_available": "لا توجد اجتماعات محذوفة متاحة",
+      "filter_placeholder": "تصفية..."
+    },
+    "validation": {
+      "objective_required": "الهدف مطلوب",
+      "type_required": "نوع الاجتماع مطلوب",
+      "date_required": "التاريخ مطلوب",
+      "fix_errors": "يرجى تصحيح الأخطاء أدناه"
+    },
+    "success": "تم إنشاء الاجتماع بنجاح!",
+    "actions": {
+      "cancel": "إلغاء",
+      "create": "إنشاء الاجتماع",
+      "uploading": "جاري تحميل الملفات...",
+      "creating": "جاري الإنشاء..."
+    },
+    "documents": {
+      "add": "إضافة مستندات",
+      "none": "لم تتم إضافة أي مستند",
+      "dropzone": "انقر أو اسحب وأفلت الملفات هنا",
+      "remove": "حذف الملف"
+    },
+    "photos": {
+      "add": "إضافة صور",
+      "none": "لم تتم إضافة أي صورة",
+      "dropzone": "انقر أو اسحب وأفلت الصور هنا",
+      "remove": "حذف الصورة"
+    },
+    "description_counter": "حرف",
+    "select_placeholder": "اختر..."
+  }
+}

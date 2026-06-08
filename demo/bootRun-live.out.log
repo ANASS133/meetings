@@ -1,0 +1,27 @@
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>if "Windows_NT" == "Windows_NT" setlocal
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set DIRNAME=C:\Users\provincesettat\Desktop\les reunions\new-v\demo\ 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>if "C:\Users\provincesettat\Desktop\les reunions\new-v\demo\" == "" set DIRNAME=. 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set APP_BASE_NAME=gradlew 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set APP_HOME=C:\Users\provincesettat\Desktop\les reunions\new-v\demo\ 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>for %i in ("C:\Users\provincesettat\Desktop\les reunions\new-v\demo\") do set APP_HOME=%~fi 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set APP_HOME=C:\Users\provincesettat\Desktop\les reunions\new-v\demo\ 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m" 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>if defined JAVA_HOME goto findJavaFromJavaHome 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set JAVA_HOME=C:\Program Files\Java\jdk-17 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>set JAVA_EXE=C:\Program Files\Java\jdk-17/bin/java.exe 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>if exist "C:\Program Files\Java\jdk-17/bin/java.exe" goto execute 
+
+C:\Users\provincesettat\Desktop\les reunions\new-v\demo>"C:\Program Files\Java\jdk-17/bin/java.exe" "-Xmx64m" "-Xms64m"   "-Dorg.gradle.appname=gradlew" -jar "C:\Users\provincesettat\Desktop\les reunions\new-v\demo\\gradle\wrapper\gradle-wrapper.jar" bootRun 
+Starting a Gradle Daemon, 6 busy and 4 stopped Daemons could not be reused, use --status for details
