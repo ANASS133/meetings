@@ -73,6 +73,7 @@ public class MeetingResponse {
     private Long pausedDurationSeconds;
     private Long elapsedSeconds;   // server-calculated live elapsed
     private Boolean isPaused;
+    private Long extraTimeAllowedSeconds;
 
     /**
      * Convenience — kept for backward compatibility with older

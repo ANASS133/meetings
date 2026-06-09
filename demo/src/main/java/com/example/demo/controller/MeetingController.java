@@ -77,6 +77,28 @@ public class MeetingController {
         return ResponseEntity.ok(meetingService.resumeMeeting(id));
     }
 
+    @PostMapping("/{id}/extend")
+    public ResponseEntity<MeetingResponse> extendMeeting(
+            @PathVariable Long id,
+            @RequestParam int minutes) {
+        return ResponseEntity.ok(meetingService.extendMeeting(id, minutes));
+    }
+
+    @GetMapping("/check-availability")
+    public ResponseEntity<java.util.List<MeetingResponse>> checkAvailability(
+            @RequestParam String room,
+            @RequestParam String date,
+            @RequestParam String startTime,
+            @RequestParam String endTime,
+            @RequestParam(required = false) Long excludeId) {
+
+        java.time.LocalDate localDate = java.time.LocalDate.parse(date);
+        java.time.LocalTime localStartTime = java.time.LocalTime.parse(startTime);
+        java.time.LocalTime localEndTime = java.time.LocalTime.parse(endTime);
+
+        return ResponseEntity.ok(meetingService.checkAvailability(room, localDate, localStartTime, localEndTime, excludeId));
+    }
+
     // ── Live participant management ──
 
     @PostMapping("/{id}/participants/{participantId}")

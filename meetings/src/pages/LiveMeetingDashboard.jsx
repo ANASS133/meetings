@@ -397,6 +397,16 @@ export default function LiveMeetingDashboard() {
     }
   };
 
+  const handleExtend = async (minutes) => {
+    try {
+      const { data } = await api.post(`/api/meetings/${id}/extend?minutes=${minutes}`);
+      setMeeting(data);
+      showToast(`Réunion prolongée de ${minutes} minutes`, 'success');
+    } catch {
+      showToast('Impossible de prolonger la réunion', 'error');
+    }
+  };
+
   // ── Render ──
 
   if (loading) return <LoadingSpinner fullPage />;
@@ -409,11 +419,30 @@ export default function LiveMeetingDashboard() {
   const finalDuration = meeting.finalDurationMinutes;
   
   const plannedSeconds = planned * 60;
-  const isOvertime = isLive && plannedSeconds > 0 && elapsed > plannedSeconds;
+  const extraTimeAllowed = meeting.extraTimeAllowedSeconds ?? 0;
+  const limitSeconds = plannedSeconds + extraTimeAllowed;
+
+  // Check if limit is reached (capping state)
+  const isLimitReached = isLive && !isPaused && elapsed >= limitSeconds;
+
+  // Show second timer if elapsed hits/exceeds planned duration
+  const showSecondTimer = isLive && elapsed >= plannedSeconds;
+
   const displaySeconds = isLive 
-    ? (isOvertime ? plannedSeconds : elapsed) 
+    ? (elapsed > plannedSeconds ? plannedSeconds : elapsed) 
     : (finalDuration != null ? finalDuration * 60 : plannedSeconds);
-  const overtimeSeconds = isOvertime ? elapsed - plannedSeconds : 0;
+    
+  const overtimeSeconds = showSecondTimer ? (elapsed - plannedSeconds) : 0;
+
+  // ── Progress Bar & Dynamic Colors ──
+  const progressPercent = plannedSeconds > 0 ? Math.min((displaySeconds / plannedSeconds) * 100, 100) : 0;
+
+  let timerColorClass = 'timer-green';
+  if (showSecondTimer) {
+    timerColorClass = 'timer-dark-orange';
+  } else if (plannedSeconds > 0 && elapsed >= plannedSeconds / 2) {
+    timerColorClass = 'timer-light-orange';
+  }
   const completedTasks = tasks.filter((task) => task.status === 'COMPLETED').length;
   const pendingTasks = Math.max(tasks.length - completedTasks, 0);
   const statusLabel = isLive ? (isPaused ? 'En pause' : 'En direct') : meeting.status === 'completed' ? 'Terminée' : 'Planifiée';
@@ -459,7 +488,7 @@ export default function LiveMeetingDashboard() {
 
       <main className="live-content">
         <section className="left-panel">
-          <div className={`timer-section ${statusClass}`}>
+          <div className={`timer-section ${statusClass} ${isLimitReached ? 'limit-reached' : ''}`}>
             <div className="timer-header">
               <Zap size={14} />
               <span>{isLive ? (isPaused ? 'En pause' : 'En cours') : meeting.status === 'completed' ? 'Terminée' : 'Prévu'}</span>
@@ -467,9 +496,9 @@ export default function LiveMeetingDashboard() {
             </div>
             <div className="timer-digital">
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '8px' }}>
-                <span className={`timer-time ${isOvertime ? 'is-frozen' : ''}`}>{formatSeconds(displaySeconds)}</span>
-                {isOvertime && (
-                  <span className="timer-time overtime-timer" style={{ fontSize: '1.75rem' }}>
+                <span className={`timer-time ${showSecondTimer ? 'is-frozen' : ''} ${timerColorClass}`}>{formatSeconds(displaySeconds)}</span>
+                {showSecondTimer && (
+                  <span className={`timer-time overtime-timer ${isLimitReached ? 'overtime-frozen' : ''}`} style={{ fontSize: '1.75rem' }}>
                     +{formatSeconds(overtimeSeconds)}
                   </span>
                 )}
@@ -477,7 +506,21 @@ export default function LiveMeetingDashboard() {
               <span className="timer-label">
                 {isLive ? 'temps écoulé' : meeting.status === 'completed' ? 'durée finale' : 'durée prévue'}
               </span>
+              <div className={`timer-progress-bar ${timerColorClass}`}>
+                <div className="timer-progress-fill" style={{ width: `${progressPercent}%` }}></div>
+              </div>
             </div>
+
+            {isLimitReached && (
+              <div className="extension-container">
+                <div className="extension-banner">Prolonger la réunion ?</div>
+                <div className="extension-btn-group">
+                  <button className="extension-btn" onClick={() => handleExtend(5)}>+5 min</button>
+                  <button className="extension-btn" onClick={() => handleExtend(10)}>+10 min</button>
+                  <button className="extension-btn" onClick={() => handleExtend(15)}>+15 min</button>
+                </div>
+              </div>
+            )}
             <div className="timer-stats">
               <div>
                 <span>Prévu</span>

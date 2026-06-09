@@ -369,18 +369,124 @@
 
 /* Live timer */
 
-.timer-section.is-live .timer-time:not(.is-frozen):not(.overtime-timer) {
+/* Live timer base colors */
+.timer-section.is-live .timer-time.timer-green:not(.overtime-timer) {
   color: var(--ld-success);
-  animation: timerPulse 2s ease-in-out infinite;
 }
 
-.timer-section.is-live .timer-time.is-frozen {
-  color: var(--ld-success);
+.timer-section.is-live .timer-time.timer-light-orange:not(.overtime-timer) {
+  color: #f59e0b; /* Light orange */
+}
+
+.timer-section.is-live .timer-time.timer-dark-orange:not(.overtime-timer) {
+  color: #d97706; /* Dark orange */
+}
+
+/* Pulsing effect only when not frozen */
+.timer-section.is-live .timer-time:not(.is-frozen):not(.overtime-timer) {
+  animation: timerPulse 2s ease-in-out infinite;
 }
 
 .timer-section.is-live .timer-time.overtime-timer {
   color: var(--ld-danger);
   animation: timerPulse 2s ease-in-out infinite;
+}
+
+.timer-section.is-live .timer-time.overtime-timer.overtime-frozen {
+  color: #ea580c; /* Warning orange when reached the allowed limit and frozen */
+  animation: none; /* Stop pulsing when frozen */
+}
+
+/* Progress Bar */
+.timer-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--ld-border);
+  border-radius: 3px;
+  margin-top: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.timer-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s linear, background-color 0.3s ease;
+}
+
+.timer-progress-bar.timer-green .timer-progress-fill {
+  background: var(--ld-success);
+}
+
+.timer-progress-bar.timer-light-orange .timer-progress-fill {
+  background: #f59e0b;
+}
+
+.timer-progress-bar.timer-dark-orange .timer-progress-fill {
+  background: #d97706;
+}
+
+/* Extension controls styling */
+.extension-container {
+  margin: 14px 0 18px;
+  padding: 12px;
+  background: rgba(234, 88, 12, 0.06);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  border-radius: var(--ld-radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.extension-banner {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ld-warning);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.extension-btn-group {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.extension-btn {
+  flex: 1;
+  max-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--ld-warning);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(234, 88, 12, 0.2);
+  transition: all 0.15s;
+}
+
+.extension-btn:hover {
+  background: #d94e06;
+  box-shadow: 0 4px 8px rgba(234, 88, 12, 0.3);
+  transform: translateY(-1px);
+}
+
+.extension-btn:active {
+  transform: scale(0.97);
+}
+
+/* When time limit is reached, give the whole timer card a warning glow */
+.timer-section.limit-reached {
+  border-color: var(--ld-warning) !important;
+  box-shadow: 0 0 12px rgba(234, 88, 12, 0.15) !important;
 }
 
 @keyframes timerPulse {

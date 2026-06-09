@@ -140,7 +140,7 @@
       "start_time": { "label": "Heure de début" },
       "end_time": { "label": "Heure de fin" },
       "room": { "label": "Salle" },
-      "objet": { "label": "Objet de la séance", "placeholder": "Sélectionner l'objet de la séance..." },
+      "objet": { "label": "Objet", "placeholder": "Sélectionner l'objet..." },
       "dependences": { "label": "Dépendances", "placeholder": "Sélectionner un objectif de réunion supprimée..." },
       "communes": { "label": "Communes", "placeholder": "Taper une commune..." },
       "services_internes": { "label": "Services Internes" },

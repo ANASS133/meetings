@@ -194,15 +194,20 @@ public class MeetingService {
 
         meeting.setActualEndTime(now);
         meeting.setStatus("completed");
-
         // Calculate final duration: (actualEndTime - actualStartTime - pausedDuration) in minutes
         long totalElapsedSeconds = Duration.between(meeting.getActualStartTime(), now).getSeconds();
-        long paused = meeting.getPausedDurationSeconds() != null ? meeting.getPausedDurationSeconds() : 0L;
-        long effectiveSeconds = Math.max(0, totalElapsedSeconds - paused);
+        long pausedSecs = meeting.getPausedDurationSeconds() != null ? meeting.getPausedDurationSeconds() : 0L;
+        long limitSeconds = (meeting.getPlannedDurationMinutes() != null ? meeting.getPlannedDurationMinutes() : 0L) * 60
+                + (meeting.getExtraTimeAllowedSeconds() != null ? meeting.getExtraTimeAllowedSeconds() : 0L);
+        long rawElapsed = totalElapsedSeconds - pausedSecs;
+        if (rawElapsed > limitSeconds) {
+            long overage = rawElapsed - limitSeconds;
+            pausedSecs += overage;
+            meeting.setPausedDurationSeconds(pausedSecs);
+        }
+        long effectiveSeconds = Math.max(0, totalElapsedSeconds - pausedSecs);
         long finalMinutes = effectiveSeconds / 60;  // truncation → Math.floor
-
         meeting.setFinalDurationMinutes(finalMinutes);
-
         // Archive and delete
         historiqueRepository.save(toHistorique(meeting));
         MeetingResponse response = toResponse(meeting);
@@ -272,6 +277,48 @@ public class MeetingService {
     }
 
     // -----------------------------------------------------------------
+    // Extend meeting planned duration
+    // -----------------------------------------------------------------
+    @Transactional
+    public MeetingResponse extendMeeting(Long id, int minutes) {
+        Meeting meeting = meetingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Meeting", "id", id));
+
+        if (!"in_progress".equals(meeting.getStatus())) {
+            throw new IllegalStateException("Meeting must be in progress to extend.");
+        }
+
+        LocalDateTime referencePoint = meeting.getPauseStartTime() != null
+                ? meeting.getPauseStartTime()
+                : LocalDateTime.now();
+
+        long rawElapsed = Duration.between(meeting.getActualStartTime(), referencePoint).getSeconds();
+        long pausedSecs = meeting.getPausedDurationSeconds() != null ? meeting.getPausedDurationSeconds() : 0L;
+        long calculatedElapsed = Math.max(0, rawElapsed - pausedSecs);
+
+        long limitSeconds = (meeting.getPlannedDurationMinutes() != null ? meeting.getPlannedDurationMinutes() : 0L) * 60
+                + (meeting.getExtraTimeAllowedSeconds() != null ? meeting.getExtraTimeAllowedSeconds() : 0L);
+
+        // If the meeting was frozen/stopped because it exceeded the current limit,
+        // we add the overage (time spent in stopped state) to pausedDurationSeconds
+        if (calculatedElapsed > limitSeconds) {
+            long overage = calculatedElapsed - limitSeconds;
+            meeting.setPausedDurationSeconds(pausedSecs + overage);
+        }
+
+        long addSeconds = minutes * 60L;
+        meeting.setExtraTimeAllowedSeconds((meeting.getExtraTimeAllowedSeconds() != null ? meeting.getExtraTimeAllowedSeconds() : 0L) + addSeconds);
+
+        // Also push the meeting planned endTime forward to keep it consistent
+        if (meeting.getEndTime() != null) {
+            meeting.setEndTime(meeting.getEndTime().plusMinutes(minutes));
+        }
+
+        meeting = meetingRepository.save(meeting);
+        return toResponse(meeting);
+    }
+
+    // -----------------------------------------------------------------
     // Update live data (discussion / recommendation)
     // -----------------------------------------------------------------
     @Transactional
@@ -282,6 +329,20 @@ public class MeetingService {
         meeting.setRecommendation(recommendation);
         meeting = meetingRepository.save(meeting);
         return toResponse(meeting);
+    }
+
+    // -----------------------------------------------------------------
+    // Check room availability
+    // -----------------------------------------------------------------
+    @Transactional(readOnly = true)
+    public List<MeetingResponse> checkAvailability(String room, LocalDate date, java.time.LocalTime startTime, java.time.LocalTime endTime, Long excludeId) {
+        if (room == null || date == null || startTime == null || endTime == null) {
+            return Collections.emptyList();
+        }
+        List<Meeting> conflicts = meetingRepository.findOverlappingMeetings(room, date, startTime, endTime, excludeId);
+        return conflicts.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 
     // -----------------------------------------------------------------
@@ -442,7 +503,17 @@ public class MeetingService {
             // Elapsed from actualStartTime to referencePoint, minus cumulative pauses
             long rawElapsed = Duration.between(m.getActualStartTime(), referencePoint).getSeconds();
             long pausedSecs = m.getPausedDurationSeconds() != null ? m.getPausedDurationSeconds() : 0L;
-            elapsed = Math.max(0, rawElapsed - pausedSecs);
+            long calculatedElapsed = Math.max(0, rawElapsed - pausedSecs);
+
+            // Limit calculation: planned + extra allowed
+            long limitSeconds = (m.getPlannedDurationMinutes() != null ? m.getPlannedDurationMinutes() : 0L) * 60
+                    + (m.getExtraTimeAllowedSeconds() != null ? m.getExtraTimeAllowedSeconds() : 0L);
+
+            if (calculatedElapsed > limitSeconds) {
+                elapsed = limitSeconds;
+            } else {
+                elapsed = calculatedElapsed;
+            }
             paused = m.getPauseStartTime() != null;
         }
 
@@ -476,6 +547,7 @@ public class MeetingService {
                 .pausedDurationSeconds(m.getPausedDurationSeconds())
                 .elapsedSeconds(elapsed)
                 .isPaused(paused)
+                .extraTimeAllowedSeconds(m.getExtraTimeAllowedSeconds() != null ? m.getExtraTimeAllowedSeconds() : 0L)
                 .build();
     }
 

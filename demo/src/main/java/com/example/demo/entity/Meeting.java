@@ -100,6 +100,12 @@ public class Meeting {
     private Long plannedDurationMinutes;
 
     /**
+     * Total authorized extra time in seconds (sum of manual extensions: +5, +10, +15 mins).
+     */
+    @Builder.Default
+    private Long extraTimeAllowedSeconds = 0L;
+
+    /**
      * Real duration in minutes, calculated at meeting end:
      * floor((actualEndTime - actualStartTime - pausedDurationSeconds) / 60)
      * Stored without any adjustment, rounding, or extension.

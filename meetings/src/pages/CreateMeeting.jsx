@@ -119,6 +119,16 @@ export default function CreateMeeting() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [conflicts, setConflicts] = useState([]);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
+
+  const todayStr = (() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  })();
 
   const [participants, setParticipants] = useState([]);
   const [selectedParticipants, setSelectedParticipants] = useState([]);
@@ -181,6 +191,32 @@ export default function CreateMeeting() {
       })
       .catch(() => {});
   }, []);
+
+  /* check room availability ──────────────────────────────── */
+  useEffect(() => {
+    const checkAvailability = async () => {
+      const { room, date, startTime, endTime } = form;
+      if (!room || !date || !startTime || !endTime) {
+        setConflicts([]);
+        return;
+      }
+
+      setCheckingAvailability(true);
+      try {
+        const { data } = await api.get('/api/meetings/check-availability', {
+          params: { room, date, startTime, endTime }
+        });
+        setConflicts(data);
+      } catch (err) {
+        console.error('Failed to check room availability', err);
+      } finally {
+        setCheckingAvailability(false);
+      }
+    };
+
+    const timer = setTimeout(checkAvailability, 400);
+    return () => clearTimeout(timer);
+  }, [form.room, form.date, form.startTime, form.endTime]);
 
   /* click-outside handlers ─────────────────────────────────── */
   useEffect(() => {
@@ -328,7 +364,14 @@ export default function CreateMeeting() {
     const errs = {};
     if (!form.objective.trim()) errs.objective = t('createMeeting.validation.objective_required');
     if (!form.type.trim()) errs.type = t('createMeeting.validation.type_required');
-    if (!form.date) errs.date = t('createMeeting.validation.date_required');
+    if (!form.date) {
+      errs.date = t('createMeeting.validation.date_required');
+    } else if (form.date < todayStr) {
+      errs.date = t('createMeeting.validation.date_before_today', "La date ne peut pas être antérieure à aujourd'hui");
+    }
+    if (conflicts.length > 0) {
+      errs.room = "Cette salle est déjà occupée pour l'horaire sélectionné.";
+    }
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -338,6 +381,10 @@ export default function CreateMeeting() {
     e.preventDefault();
     if (!validate()) {
       showToast(t('createMeeting.validation.fix_errors'), 'warning');
+      return;
+    }
+    if (conflicts.length > 0) {
+      showToast("La salle sélectionnée est occupée.", 'error');
       return;
     }
 
@@ -358,12 +405,29 @@ export default function CreateMeeting() {
       // Upload files if any
       if (selectedFiles.length > 0 || selectedImages.length > 0) {
         setUploadingFiles(true);
-        const fd = new FormData();
-        selectedFiles.forEach((f) => fd.append('files', f));
-        selectedImages.forEach((f) => fd.append('images', f));
-        await api.post(`/api/meetings/${meeting.id}/documents`, fd, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+        const uploadPromises = [];
+
+        selectedFiles.forEach((file) => {
+          const fd = new FormData();
+          fd.append('file', file);
+          uploadPromises.push(
+            api.post(`/api/meetings/${meeting.id}/documents`, fd, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            })
+          );
         });
+
+        selectedImages.forEach((image) => {
+          const fd = new FormData();
+          fd.append('file', image);
+          uploadPromises.push(
+            api.post(`/api/meetings/${meeting.id}/photos`, fd, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            })
+          );
+        });
+
+        await Promise.all(uploadPromises);
         setUploadingFiles(false);
       }
 
@@ -472,6 +536,7 @@ export default function CreateMeeting() {
               className={`field-input${errors.date ? ' field-error' : ''}`}
               value={form.date}
               onChange={handleChange}
+              min={todayStr}
             />
             {errors.date && <span className="field-error-msg">{errors.date}</span>}
           </div>
@@ -521,7 +586,7 @@ export default function CreateMeeting() {
               <select
                 id="room"
                 name="room"
-                className="field-select"
+                className={`field-select${errors.room ? ' field-error' : ''}`}
                 value={form.room}
                 onChange={handleChange}
               >
@@ -532,6 +597,23 @@ export default function CreateMeeting() {
               </select>
               <Icon name="chevron-down" size={14} />
             </div>
+            {errors.room && <span className="field-error-msg">{errors.room}</span>}
+
+            {conflicts.length > 0 && (
+              <div className="availability-conflict-banner">
+                <Icon name="alert-circle" size={16} />
+                <div className="conflict-text">
+                  <strong>Attention :</strong> Cette salle est occupée sur ce créneau :
+                  <ul>
+                    {conflicts.map((c) => (
+                      <li key={c.id}>
+                        {c.objective || c.title || 'Réunion'} ({c.startTime?.substring(0, 5) || '--:--'} - {c.endTime?.substring(0, 5) || '--:--'})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* ── Objet ─────────────────────────────────────────── */}
